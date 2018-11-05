@@ -9,5 +9,6 @@ group :development do
 end
 
 group :development, :test do
+  gem "rspec-rails", "~> 3.8.1"
   gem "rubocop", "~> 0.60.0"
 end
