@@ -16,4 +16,10 @@ Style/StringLiterals:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+  
+Syntax/HashSyntax:
+  EnforcedStyle: no_mixed_keys
 
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedLastArgumentHashStyle: ignore_implicit

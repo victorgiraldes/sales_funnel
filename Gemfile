@@ -12,3 +12,7 @@ group :development, :test do
   gem "rspec-rails", "~> 3.8.1"
   gem "rubocop", "~> 0.60.0"
 end
+
+group :test do
+  gem "shoulda-matchers", "4.0.0.rc1"
+end

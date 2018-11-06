@@ -22,3 +22,7 @@ Para organizar o meu processo comercial
 - Toda vez que uma ação inválida for executada, o usuário deve ser notificado
 - É preciso gravar quando cada negócio foi ganho
 - É preciso saber quanto tempo cada negócio durou em cada etapa
+
+## Protótipo
+
+[Sketch Cloud](https://sketch.cloud/s/djxJn)
