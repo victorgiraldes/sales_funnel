@@ -1,1 +1,21 @@
-<%= link_to "Criar nova venda", "#" %>
+<%= link_to "Criar nova venda", new_sale_path %>
+
+<table>
+  <thead>
+    <th>Produto</th>
+    <th>Cliente</th>
+    <th>Valor</th>
+    <th>Estágio</th>
+  </thead>
+
+  <tbody>
+    <% sales.each do |sale| %>
+      <tr>
+        <td><%= sale.product %></td>
+        <td><%= sale.customer %></td>
+        <td><%= sale.amount %></td>
+        <td><%= sale.stage %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

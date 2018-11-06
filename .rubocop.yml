@@ -16,8 +16,8 @@ Style/StringLiterals:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-  
-Syntax/HashSyntax:
+
+Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
 Layout/AlignHash:

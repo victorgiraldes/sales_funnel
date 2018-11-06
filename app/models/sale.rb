@@ -9,4 +9,8 @@ class Sale < ApplicationRecord
   }
 
   validates :product, :customer, :amount, :stage, presence: true
+
+  def self.build(args)
+    new({ stage: :contact }.merge(args))
+  end
 end

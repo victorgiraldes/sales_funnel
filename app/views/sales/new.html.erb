@@ -1,0 +1,6 @@
+<%= form_for :sale, url: sales_path do |form| %>
+  <%= form.text_field :product, placeholder: "Produto" %>
+  <%= form.text_field :customer, placeholder: "Cliente" %>
+  <%= form.text_field :amount, placeholder: "Valor" %>
+  <%= form.submit "Salvar" %>
+<% end %>
