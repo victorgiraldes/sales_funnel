@@ -2,9 +2,9 @@ class SalesController < ApplicationController
   helper_method :sale
 
   def create
-    new_sale = Sale.new(sale_params)
+    sale = Sale.create_with_progression(sale_params)
 
-    if new_sale.save
+    if sale.persisted?
       redirect_to funnel_path
     else
       flash.now[:alert] = "Venda não foi salva"
@@ -13,7 +13,7 @@ class SalesController < ApplicationController
   end
 
   def update
-    if sale.update(stage_params)
+    if sale.progress_to(stage)
       redirect_to funnel_path
     else
       flash.now[:alert] = "Venda não foi atualizada"
@@ -31,7 +31,7 @@ class SalesController < ApplicationController
     params.require(:sale).permit(:product, :customer, :amount)
   end
 
-  def stage_params
-    params.require(:sale).permit(:stage)
+  def stage
+    params.require(:sale).require(:stage)
   end
 end

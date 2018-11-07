@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_174848) do
+ActiveRecord::Schema.define(version: 2018_11_07_192110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "progressions", force: :cascade do |t|
+    t.bigint "sale_id"
+    t.string "stage", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sale_id"], name: "index_progressions_on_sale_id"
+  end
 
   create_table "sales", force: :cascade do |t|
     t.string "product", null: false
@@ -24,4 +32,5 @@ ActiveRecord::Schema.define(version: 2018_11_07_174848) do
     t.integer "stage", default: 0, null: false
   end
 
+  add_foreign_key "progressions", "sales"
 end
