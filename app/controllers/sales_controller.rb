@@ -1,8 +1,10 @@
 class SalesController < ApplicationController
-  def create
-    sale = Sale.build(sale_params)
+  helper_method :sale
 
-    if sale.save
+  def create
+    new_sale = Sale.build(create_params)
+
+    if new_sale.save
       redirect_to funnel_path
     else
       flash.now[:alert] = "Venda não foi salva"
@@ -10,9 +12,26 @@ class SalesController < ApplicationController
     end
   end
 
+  def update
+    if sale.update(update_params)
+      redirect_to funnel_path
+    else
+      flash.now[:alert] = "Venda não foi atualizada"
+      render :edit
+    end
+  end
+
   private
 
-  def sale_params
+  def sale
+    @sale ||= Sale.find(params[:id])
+  end
+
+  def create_params
     params.require(:sale).permit(:product, :customer, :amount)
+  end
+
+  def update_params
+    params.require(:sale).permit(:stage)
   end
 end

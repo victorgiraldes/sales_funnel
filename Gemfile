@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "5.2.1"
 
 gem "pg", "~> 1.0"
+gem "puma", "~> 3.12"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"

@@ -6,6 +6,7 @@
     <th>Cliente</th>
     <th>Valor</th>
     <th>Estágio</th>
+    <th></th>
   </thead>
 
   <tbody>
@@ -15,6 +16,7 @@
         <td><%= sale.customer %></td>
         <td><%= sale.amount %></td>
         <td><%= sale.stage %></td>
+        <td><%= link_to "Mudar de estágio", edit_sale_path(sale) %></th> 
       </tr>
     <% end %>
   </tbody>
