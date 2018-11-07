@@ -1,28 +1,14 @@
 class Sale < ApplicationRecord
-  enum stage: {
-    :contact   => "contact",
-    :proposal  => "proposal",
-    :follow_up => "follow_up",
-    :closing   => "closing",
-    :closed    => "closed",
-    :lost      => "lost"
-  }
+  enum stage: [:contact, :proposal, :follow_up, :closing, :closed, :lost]
 
   validates :product, :customer, :amount, :stage, presence: true
-  validate do |sale|
-    if stage_changed? && !stage_evolved?
-      sale.errors.add(:stage, "can't go back in stage")
-    end
+  validates_with SaleValidator
+
+  def self.stage_position(stage)
+    stages[stage] || -1
   end
 
-  def self.build(args)
-    new({ stage: :contact }.merge(args))
-  end
-
-  def stage_evolved?
-    return true if stage_was.nil?
-
-    stages = self.class.stages.keys
-    stages.index(stage) > stages.index(stage_was)
+  def ahead_of_stage?(other_stage)
+    Sale.stage_position(stage) > Sale.stage_position(other_stage)
   end
 end

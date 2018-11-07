@@ -20,6 +20,16 @@ Style/FrozenStringLiteralComment:
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
+Style/SymbolArray:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
 Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedLastArgumentHashStyle: ignore_implicit
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - describe

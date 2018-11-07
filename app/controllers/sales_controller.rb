@@ -2,7 +2,7 @@ class SalesController < ApplicationController
   helper_method :sale
 
   def create
-    new_sale = Sale.build(create_params)
+    new_sale = Sale.new(sale_params)
 
     if new_sale.save
       redirect_to funnel_path
@@ -13,7 +13,7 @@ class SalesController < ApplicationController
   end
 
   def update
-    if sale.update(update_params)
+    if sale.update(stage_params)
       redirect_to funnel_path
     else
       flash.now[:alert] = "Venda não foi atualizada"
@@ -27,11 +27,11 @@ class SalesController < ApplicationController
     @sale ||= Sale.find(params[:id])
   end
 
-  def create_params
+  def sale_params
     params.require(:sale).permit(:product, :customer, :amount)
   end
 
-  def update_params
+  def stage_params
     params.require(:sale).permit(:stage)
   end
 end
