@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700i');
+
+body {
+  background-color: #E6E6E6;
+  color: #555;
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  line-height: 1;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+input[value]:invalid {
+  color: red;
+}
+
+::placeholder  {
+  font-style: italic;
+  color: #777;
+}

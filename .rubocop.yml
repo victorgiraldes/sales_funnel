@@ -4,6 +4,7 @@ AllCops:
     - bin/*
     - db/schema.rb
     - db/migrate/*
+    - node_modules/**/*
 
 Bundler/OrderedGems:
   Enabled: false
@@ -29,6 +30,9 @@ Style/GuardClause:
 Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedLastArgumentHashStyle: ignore_implicit
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
 
 Metrics/BlockLength:
   ExcludedMethods:

@@ -1,27 +1,34 @@
-<%= react_component("App", { text: "example prop." }) %>
-
-<!--
-<%= link_to "Criar nova venda", new_sale_path %>
-
-<table>
-  <thead>
-    <th>Produto</th>
-    <th>Cliente</th>
-    <th>Valor</th>
-    <th>Estágio</th>
-    <th></th>
-  </thead>
-
-  <tbody>
-    <% sales.each do |sale| %>
-      <tr>
-        <td><%= sale.product %></td>
-        <td><%= sale.customer %></td>
-        <td><%= sale.amount %></td>
-        <td><%= sale.stage %></td>
-        <td><%= link_to "Mudar de estágio", edit_sale_path(sale) %></th> 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
--->
+<%=
+  react_component "App",
+    {
+      cards: sales,
+      columns: [
+        { 
+          id: :contact,
+          title: "Contato"
+        },
+        {
+          id: :proposal,
+          title: "Envio de proposta"
+        },
+        {
+          id: :follow_up,
+          title: "Follow-up"
+        },
+        {
+          id: :closing,
+          title: "Fechamento"
+        },
+        {
+          id: :closed,
+          title: "Ganhos",
+          theme: :success
+        },
+        {
+          id: :lost,
+          title: "Perdidos",
+          theme: :failure
+        }
+      ]
+    }
+%>
