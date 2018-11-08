@@ -5,6 +5,9 @@ gem "rails", "5.2.1"
 gem "pg", "~> 1.0"
 gem "puma", "~> 3.12"
 
+gem "react-rails", "~> 2.4"
+gem "webpacker", "~> 3.5"
+
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
 end
