@@ -10,11 +10,12 @@ class Column extends React.Component {
 
     this.state = { dragEnterCount: 0 }
 
-    this.totalAmount = props.cards.reduce((acc, card) => acc + card.amount, 0)
     this.onDrop = this.onDrop.bind(this)
     this.onDragEnter = this.onDragEnter.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
 
+    this.totalAmount = this.totalAmount.bind(this)
+    this.bgClass = this.bgClass.bind(this)        
     this.isUnderDraggedCard = this.isUnderDraggedCard.bind(this)
   }
 
@@ -54,6 +55,21 @@ class Column extends React.Component {
     return this.state.dragEnterCount > 0
   }
 
+  totalAmount() {
+    return this.props.cards.reduce((acc, card) => acc + card.amount, 0)
+  }
+
+  bgClass() {
+    switch (this.props.id) {
+      case "closed":
+        return "bg-success"
+      case "lost":
+        return "bg-failure"
+      default:
+        return "bg-default"
+    }
+  }
+
   render() {
     return (
       <div
@@ -63,13 +79,13 @@ class Column extends React.Component {
         onDragEnter={this.onDragEnter}
         onDragLeave={this.onDragLeave}
       >
-        <div className="bg-default">
+        <div className={this.bgClass()}>
           <div className="padding-md text-white text-bold text-italic text-larger">
             <div>{this.props.title}</div>
           </div>
           <div className="flex-container-space-between padding-md text-white text-bold bg-darken">
             <div className="text-italic">
-              <Currency amount={this.totalAmount} />
+              <Currency amount={this.totalAmount()} />
             </div>
             <div>
               {pluralize(this.props.cards.length, "negócio", "negócios")}

@@ -5,29 +5,23 @@ class SalesController < ApplicationController
     sale = Sale.create_with_progression(sale_params)
 
     if sale.persisted?
-      render json: sale_as_json
+      render json: sale
     else
       head :unprocessable_entity
     end
   end
 
   def update
+    sale = Sale.find(params[:id])
+
     if sale.progress_to(stage)
-      render json: sale_as_json
+      render json: sale
     else
       head :unprocessable_entity
     end
   end
 
   private
-
-  def sale
-    @sale ||= Sale.find(params[:id])
-  end
-
-  def sale_as_json
-    sale.as_json(only: [:id, :product, :customer, :amount, :stage])
-  end
 
   def sale_params
     params.require(:sale).permit(:product, :customer, :amount)

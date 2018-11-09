@@ -2,33 +2,6 @@
   react_component "App",
     {
       cards: sales,
-      columns: [
-        { 
-          id: :contact,
-          title: "Contato"
-        },
-        {
-          id: :proposal,
-          title: "Envio de proposta"
-        },
-        {
-          id: :follow_up,
-          title: "Follow-up"
-        },
-        {
-          id: :closing,
-          title: "Fechamento"
-        },
-        {
-          id: :closed,
-          title: "Ganhos",
-          theme: :success
-        },
-        {
-          id: :lost,
-          title: "Perdidos",
-          theme: :failure
-        }
-      ]
+      columns: stages.map { |id, title| { id: id, title: title } }
     }
 %>

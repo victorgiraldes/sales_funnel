@@ -1,4 +1,0 @@
-<%= form_for sale do |form| %>
-  <%= form.select :stage, options_for_select(Sale.stages.keys, sale.stage) %>
-  <%= form.submit "Salvar" %>
-<% end %>

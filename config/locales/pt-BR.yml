@@ -1,10 +1,11 @@
 pt-BR:
-  activemodel:
-    sale:
-      stages:
-        contact: Contato
-        proposal: Envio de proposta
-        follow_up: Follow-up
-        closing: Fechamento
-        closed: Ganhos
-        lost: Perdidos
+  activerecord:
+    attributes:
+      sale:
+        stages:
+          contact: Contato
+          proposal: Envio de proposta
+          follow_up: Follow-up
+          closing: Fechamento
+          closed: Ganhos
+          lost: Perdidos
