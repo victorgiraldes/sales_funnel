@@ -1,64 +1,51 @@
 import React from "react"
 import checkIcon from "images/check.png"
 import cancelIcon from "images/cancel.png"
+import companyIcon from "images/company.png"
 
 const Form = (props) => {
   let inputs = []
 
   const onSubmit = (event) => {
     event.preventDefault()
-    console.log(inputs[2].value)
-    props.onSubmit(inputs[0].value, inputs[1].value, parseFloat(inputs[2].value) * 100)
-  }
-
-  let style = {
-      padding: 8,
-      borderRadius: 5,
-      boxShadow: "0 0 2px rgba(0, 0, 0, 0.15)",
-      backgroundColor: "white",
-      color: "#777",
-      marginBottom: 10
-    }
-
-  let buttonStyle = {
-    backgroundColor: "transparent",
-    border: "none",
-    cursor: "pointer"
-  }
-
-  let imgStyle ={
-    height: "1em",
-    verticalAlign: "middle"
+    props.onSubmit(inputs[0].value, inputs[1].value, parseAmount(inputs[2].value))
   }
 
   return (
-    <form onSubmit={onSubmit} style={style}>
-      <div style={{display: "flex", margin: "8px 0"}}>
+    <form
+      className="padding-md rounded-border box-shadow bg-white margin-bottom-sm"
+      onSubmit={onSubmit}
+    >
+      <div className="flex-container margin-top-sm margin-bottom-md">
         <input
-          style={{minWidth: 0, width: "100%", flex: 1}}
+          className="flex-item-grow"
           type="text"
           ref={input => inputs[0] = input}
           placeholder="Título do negócio"
           required
           tabIndex="1"
+          autoFocus
         />
-        <button type="submit" tabIndex="4" style={buttonStyle}>
-          <img src={checkIcon} style={imgStyle} />
+        <button type="submit" tabIndex="4">
+          <img src={checkIcon} className="height-icon-sm vertical-align-middle" />
         </button>
-        <button onClick={props.onCancel} tabIndex="5" style={buttonStyle}>
-          <img src={cancelIcon} style={imgStyle} />
+        <button onClick={props.onCancel} tabIndex="5">
+          <img src={cancelIcon} className="height-icon-sm vertical-align-middle" />
         </button>
       </div>
+      <div>
+        <img src={companyIcon} className="height-icon-sm vertical-align-middle opacity-6 margin-right-sm" />
+        <input
+          className="text-smaller inline-block vertical-align-middle"
+          type="text"
+          ref={input => inputs[1] = input}
+          placeholder="Nome do cliente"
+          required
+          tabIndex="2"
+        />
+      </div>
       <input
-        style={{width: "100%", fontSize: ".95em"}}
-        type="text"
-        ref={input => inputs[1] = input}
-        placeholder="Nome do cliente"
-        required
-        tabIndex="2"
-      />
-      <input
-        style={{width: "100%", textAlign: "right", fontSize: ".95em"}}
+        className="text-smaller text-right margin-top-md width-100"
         type="number"
         step="0.01"
         ref={input => inputs[2] = input}
@@ -69,5 +56,7 @@ const Form = (props) => {
     </form>
   )
 }
+
+const parseAmount = amountStr => parseFloat(amountStr) * 100
 
 export default Form

@@ -1,5 +1,6 @@
 import React from "react"
 import Column from "./Column"
+import AddCardButton from "./AddCardButton"
 
 class App extends React.Component {
   constructor(props) {
@@ -62,11 +63,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <button tabIndex="1" onClick={this.onAdd}>
-          Adicionar negócio
-        </button>
-
-        <div style={{display: "flex", marginTop: 10}}>
+        <AddCardButton onClick={this.onAdd} />
+        <div className="flex-container margin-top-lg">
           {this.props.columns.map(column =>
             <Column
               key={column.id}

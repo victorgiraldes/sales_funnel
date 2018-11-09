@@ -17,10 +17,11 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700i');
 
 body {
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   color: #555;
   font-family: Lato, sans-serif;
   font-size: 14px;
+  margin: 14px;
 }
 
 * {
@@ -47,11 +48,163 @@ input[type=number] {
     -moz-appearance:textfield;
 }
 
-input[value]:invalid {
-  color: red;
+button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
 
 ::placeholder  {
   font-style: italic;
   color: #777;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-item-grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.height-icon-sm {
+  height: 1em;
+}
+
+.height-icon-md {
+  height: 1.3em;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.margin-top-sm {
+  margin-top: 5px;
+}
+
+.margin-right-sm {
+  margin-right: 5px;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 5px;
+}
+
+.margin-top-md {
+  margin-top: 8px;
+}
+
+.margin-right-md {
+  margin-right: 8px;
+}
+
+.margin-bottom-md {
+  margin-bottom: 8px;
+}
+
+.margin-top-lg {
+  margin-top: 14px;
+}
+
+.padding-md {
+  padding: 8px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-default {
+  background-color: #6177a8;
+}
+
+.bg-secondary {
+  background-color: #2495e0;
+}
+
+.bg-success {
+  background-color: #4cb65b;
+}
+
+.bg-failure {
+  background-color: #b15759;
+}
+
+.bg-darken {
+  background-color: rgba(0, 0, 0, .15);
+}
+
+.text-white {
+ color: white;
+}
+
+.text-success {
+  color: #66cc34;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-larger {
+  font-size: 1.2em;
+}
+
+.text-smaller {
+  font-size: .95em;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.break-word {
+  word-wrap: break-word;
+}
+
+.rounded-border {
+  border-radius: 5px;
+}
+
+.box-shadow {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+.box-shadow-inset {
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset;
+}
+
+.opacity-6 {
+  opacity: 0.6;
+}
+
+.brightness-50 {
+  filter: brightness(50%)
+}
+
+*[draggable="true"] {
+  cursor: grab;
 }
