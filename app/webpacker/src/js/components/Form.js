@@ -18,7 +18,7 @@ const Form = (props) => {
     >
       <div className="flex margin-top-sm margin-bottom-md">
         <input
-          className="flex-grow"
+          className="flex-grow min-width-0"
           type="text"
           ref={input => inputs[0] = input}
           placeholder="Título do negócio"
@@ -27,14 +27,14 @@ const Form = (props) => {
           autoFocus
         />
         <button type="submit" tabIndex="4">
-          <img src={checkIcon} className="height-icon-sm vertical-align-middle" />
+          <img src={checkIcon} className="height-100 vertical-align-middle" />
         </button>
         <button onClick={props.onCancel} tabIndex="5">
-          <img src={cancelIcon} className="height-icon-sm vertical-align-middle" />
+          <img src={cancelIcon} className="height-100 vertical-align-middle" />
         </button>
       </div>
       <div className="flex">
-        <img src={companyIcon} className="height-icon-sm vertical-align-middle opacity-6 margin-right-sm" />
+        <img src={companyIcon} className="height-100 vertical-align-middle opacity-6 margin-right-sm" />
         <input
           className="text-smaller flex-grow vertical-align-middle"
           type="text"

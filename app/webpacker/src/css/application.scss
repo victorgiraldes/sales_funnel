@@ -15,18 +15,3 @@ body {
   margin: $margin-lg;
 }
 
-.notification {
-  @extend
-    .absolute,
-    .text-white,
-    .box-shadow,
-    .bg-darken-40,
-    .pill;
-
-  top: $margin-lg;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: fadeInOut 3s ease-in-out forwards;
-}
-
-

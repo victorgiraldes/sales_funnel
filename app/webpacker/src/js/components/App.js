@@ -1,6 +1,7 @@
 import React from "react"
 import Column from "./Column"
 import AddCardButton from "./AddCardButton"
+import Toast from "./Toast"
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onCancel = this.onCancel.bind(this)
     this.onDrop = this.onDrop.bind(this)
+    this.notify = this.notify.bind(this)
+    this.onDismissNotification = this.onDismissNotification.bind(this)
   }
 
   onAdd() {
@@ -71,7 +74,7 @@ class App extends React.Component {
           return response.json()
         }
         else {
-          this.setState({ notification: "Não foi possível mover o negócio para a etapa selecionada." })
+          this.setState({ notification: "Ocorreu um erro ao mover o negócio." })
           return Promise.reject()
         }
       })
@@ -82,6 +85,9 @@ class App extends React.Component {
       })
   }
 
+  notify(text) { this.setState({ notification: text }) }
+  onDismissNotification() { this.setState({ notification: null }) }
+
   readCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').content
   }
@@ -91,21 +97,26 @@ class App extends React.Component {
       <div>
         <AddCardButton onClick={this.onAdd} />
         <div className="flex margin-top-lg">
-          {this.props.columns.map(column =>
+          {this.props.columns.map((column, index) =>
             <Column
               key={column.id}
               id={column.id}
+              position={index}
               title={column.title}
               cards={this.state.cards.filter(card => card.stage == column.id)}
               showForm={column.id == this.defaultColumnId && this.state.isAdding}
               onCancel={this.onCancel}
               onSubmit={this.onSubmit}
               onDrop={this.onDrop}
+              notify={this.notify}
             />
           )}
         </div>
         {this.state.notification &&
-          <div className="notification" onAnimationEnd={() => this.setState({ notification: null })}>{this.state.notification}</div>
+          <Toast
+            text={this.state.notification}
+            onDismiss={this.onDismissNotification}
+          />
         }
       </div>
     )

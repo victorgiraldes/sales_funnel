@@ -13,16 +13,18 @@ class Column extends React.Component {
     this.onDrop = this.onDrop.bind(this)
     this.onDragEnter = this.onDragEnter.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
+    this.onDragStart = this.onDragStart.bind(this)
 
     this.totalAmount = this.totalAmount.bind(this)
-    this.bgClass = this.bgClass.bind(this)        
+    this.bgClass = this.bgClass.bind(this)
     this.isUnderDraggedCard = this.isUnderDraggedCard.bind(this)
   }
 
   onDragEnter(event) {
     let data = JSON.parse(event.dataTransfer.getData("cardData"))
+    let sourceColumnPosition = event.dataTransfer.getData("sourceColumnPosition")
 
-    if (this.props.id != data.sourceColumnId) {
+    if (this.props.position > sourceColumnPosition) {
       this.setState(({ dragEnterCount }) => ({
         dragEnterCount: dragEnterCount + 1,
         dropzoneHeight: data.height
@@ -36,6 +38,10 @@ class Column extends React.Component {
     }))
   }
 
+  onDragStart(event) {
+    event.dataTransfer.setData("sourceColumnPosition", this.props.position)
+  }
+
   onDragOver(event) {
     event.preventDefault()
   }
@@ -43,11 +49,15 @@ class Column extends React.Component {
   onDrop(event) {
     event.preventDefault()
     let data = JSON.parse(event.dataTransfer.getData("cardData"))
+    let sourceColumnPosition = event.dataTransfer.getData("sourceColumnPosition")
 
     this.setState({ dragEnterCount: 0 })
 
-    if (data.sourceColumnId != this.props.id) {
+    if (this.props.position > sourceColumnPosition) {
       this.props.onDrop(data.id, data.sourceColumnId, this.props.id)
+    }
+    else if (this.props.position < sourceColumnPosition) {
+      this.props.notify("Um negócio não pode ser movido para uma etapa anterior do funil.")
     }
   }
 
@@ -78,6 +88,7 @@ class Column extends React.Component {
         onDragOver={this.onDragOver}
         onDragEnter={this.onDragEnter}
         onDragLeave={this.onDragLeave}
+        onDragStart={this.onDragStart}
       >
         <div className={this.bgClass()}>
           <div className="padding-md text-white text-bold text-italic text-larger">

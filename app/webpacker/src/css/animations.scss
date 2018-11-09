@@ -4,3 +4,7 @@
   75%  { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
