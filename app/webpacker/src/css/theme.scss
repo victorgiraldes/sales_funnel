@@ -1,0 +1,35 @@
+.bg-white     { background-color: white; }
+.bg-default   { background-color: #6177a8; }
+.bg-secondary { background-color: #2495e0; }
+.bg-success   { background-color: #4cb65b; }
+.bg-failure   { background-color: #b15759; }
+.bg-darken-15 { background-color: rgba(0, 0, 0, .15); }
+.bg-darken-40 { background-color: rgba(0, 0, 0, .40); }
+
+.text-white   { color: white; }
+.text-success { color: #66cc34; }
+.text-gray    { color: #777; }
+.text-bold    { font-weight: bold; }
+.text-italic  { font-style: italic; }
+.text-larger  { font-size: 1.2em; }
+.text-smaller { font-size: .95em; }
+.text-right   { text-align: right; }
+
+.break-word { word-wrap: break-word; }
+
+.rounded-border { border-radius: $border-radius; }
+
+.box-shadow       { box-shadow: 0 0 2px rgba(0, 0, 0, 0.15); }
+.box-shadow-inset { box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset; }
+
+.opacity-6      { opacity: 0.6; }
+.brightness-50  { filter: brightness(50%) }
+
+*[draggable="true"] { cursor: grab; }
+
+::placeholder { @extend .text-gray, .text-italic; }
+
+.pill {
+  padding: $margin-md $margin-lg;
+  border-radius: 9999px;
+}

@@ -16,9 +16,9 @@ const Form = (props) => {
       className="padding-md rounded-border box-shadow bg-white margin-bottom-sm"
       onSubmit={onSubmit}
     >
-      <div className="flex-container margin-top-sm margin-bottom-md">
+      <div className="flex margin-top-sm margin-bottom-md">
         <input
-          className="flex-item-grow"
+          className="flex-grow"
           type="text"
           ref={input => inputs[0] = input}
           placeholder="Título do negócio"
@@ -33,10 +33,10 @@ const Form = (props) => {
           <img src={cancelIcon} className="height-icon-sm vertical-align-middle" />
         </button>
       </div>
-      <div className="flex-container">
+      <div className="flex">
         <img src={companyIcon} className="height-icon-sm vertical-align-middle opacity-6 margin-right-sm" />
         <input
-          className="text-smaller flex-item-grow vertical-align-middle"
+          className="text-smaller flex-grow vertical-align-middle"
           type="text"
           ref={input => inputs[1] = input}
           placeholder="Nome do cliente"

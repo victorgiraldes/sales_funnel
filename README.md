@@ -32,15 +32,10 @@ o que falta:
 - refatorar a parte do fetch que está zuada
 - extrair notificação para um componente
 - transformar form num componente classe para controlar melhor os inputs
-- ver como identificar as colunas que tem cores diferentes e refatorar a passagem de props*
 - ver como impedir de mover pra colunas anteriores
-- organizar o CSS
+- organizar o CSS***
 - arrumar os testes capybara
 - testes de request - talvez
 - testes de jss
 - push no github
 - deploy no heroku
-bugs:
-- valores muito grandes estão sendo ignorados na soma da coluna
-talvez:
-- remover sprockets

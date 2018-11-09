@@ -73,7 +73,7 @@ class Column extends React.Component {
   render() {
     return (
       <div
-        className="margin-right-sm flex-item-grow full-height min-width-200"
+        className="margin-right-sm flex-grow full-height min-width-200"
         onDrop={this.onDrop}
         onDragOver={this.onDragOver}
         onDragEnter={this.onDragEnter}
@@ -83,7 +83,7 @@ class Column extends React.Component {
           <div className="padding-md text-white text-bold text-italic text-larger">
             <div>{this.props.title}</div>
           </div>
-          <div className="flex-container-space-between padding-md text-white text-bold bg-darken">
+          <div className="flex space-between padding-md text-white text-bold bg-darken-15">
             <div className="text-italic">
               <Currency amount={this.totalAmount()} />
             </div>

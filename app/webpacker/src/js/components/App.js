@@ -90,7 +90,7 @@ class App extends React.Component {
     return (
       <div>
         <AddCardButton onClick={this.onAdd} />
-        <div className="flex-container margin-top-lg">
+        <div className="flex margin-top-lg">
           {this.props.columns.map(column =>
             <Column
               key={column.id}

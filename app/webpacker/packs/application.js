@@ -10,7 +10,7 @@
 console.log('Hello World from Webpacker')
 
 // Import styles
-import "../src/css/application.css";
+import "../src/css/application.scss";
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("src/js/components", true)

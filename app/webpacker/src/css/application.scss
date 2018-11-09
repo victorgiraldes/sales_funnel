@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700i");
+
+@import "./variables.scss";
+@import "./reset.scss";
+
+@import "./layout.scss";
+@import "./theme.scss";
+@import "./animations.scss";
+
+body {
+  background-color: $body-bg;
+  color: $gray-dark;
+  font-family: Lato, sans-serif;
+  font-size: $text-size;
+  margin: $margin-lg;
+}
+
+.notification {
+  @extend
+    .absolute,
+    .text-white,
+    .box-shadow,
+    .bg-darken-40,
+    .pill;
+
+  top: $margin-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+
