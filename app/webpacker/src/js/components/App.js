@@ -2,8 +2,6 @@ import React from "react"
 import Column from "./Column"
 import AddCardButton from "./AddCardButton"
 
-const readCsrfToken = () => document.querySelector('meta[name="csrf-token"]').content
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -20,8 +18,6 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onCancel = this.onCancel.bind(this)
     this.onDrop = this.onDrop.bind(this)
-
-    this.csrfToken = readCsrfToken()
   }
 
   onAdd() {
@@ -31,7 +27,7 @@ class App extends React.Component {
   onSubmit(product, customer, amount) {
     fetch("/sales", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.csrfToken },
+      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.readCsrfToken() },
       body: JSON.stringify({ sale: { product: product, customer: customer, amount: amount } })
     })
       .then((response) => {
@@ -67,7 +63,7 @@ class App extends React.Component {
   onDrop(cardId, sourceColumnId, targetColumnId) {
     fetch("/sales/" + cardId, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.csrfToken },
+      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.readCsrfToken() },
       body: JSON.stringify({ sale: { stage: targetColumnId } })
     })
       .then((response) => {
@@ -84,6 +80,10 @@ class App extends React.Component {
           { cards: [sale].concat(cards.filter(card => card.id != cardId)) }
         ))
       })
+  }
+
+  readCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]').content
   }
 
   render() {
