@@ -6,7 +6,11 @@ const Card = ({ id, stage, product, customer, amount }) => {
   const onDragStart = (event) => {
     event.dataTransfer.setData(
       "cardData",
-      JSON.stringify({ id: id, sourceColumnId: stage })
+      JSON.stringify({
+        id: id,
+        sourceColumnId: stage,
+        height: event.target.clientHeight
+      })
     )
   }
 

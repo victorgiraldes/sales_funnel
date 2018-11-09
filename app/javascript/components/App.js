@@ -2,13 +2,16 @@ import React from "react"
 import Column from "./Column"
 import AddCardButton from "./AddCardButton"
 
+const readCsrfToken = () => document.querySelector('meta[name="csrf-token"]').content
+
 class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       isAdding: false,
-      cards: this.props.cards
+      cards: this.props.cards,
+      notification: null
     }
 
     this.defaultColumnId = this.props.columns[0].id
@@ -17,6 +20,8 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onCancel = this.onCancel.bind(this)
     this.onDrop = this.onDrop.bind(this)
+
+    this.csrfToken = readCsrfToken()
   }
 
   onAdd() {
@@ -24,21 +29,35 @@ class App extends React.Component {
   }
 
   onSubmit(product, customer, amount) {
-    // TODO
-    // make request
-    //on success, add new card to state, on error, show notification.
-    this.setState(previousState => {
-      return ({
-        isAdding: false,
-        cards: previousState.cards.concat({
-          id: product,
-          product: product,
-          customer: customer,
-          amount: amount,
-          stage: this.defaultColumnId
+    fetch("/sales", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.csrfToken },
+      body: JSON.stringify({ sale: { product: product, customer: customer, amount: amount } })
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.ok) {
+          return response.json()
+        }
+        else {
+          this.setState({ notification: "Ocorreu um erro ao criar o negócio." })
+          return Promise.reject()
+        }
+      })
+      .then((sale) => {
+        this.setState(previousState => {
+          return ({
+            isAdding: false,
+            cards: [{
+              id: sale.id,
+              product: sale.product,
+              customer: sale.customer,
+              amount: sale.amount,
+              stage: sale.stage
+            }].concat(previousState.cards)
+          })
         })
       })
-    })
   }
 
   onCancel() {
@@ -46,18 +65,25 @@ class App extends React.Component {
   }
 
   onDrop(cardId, sourceColumnId, targetColumnId) {
-    // TODO
-    // make request
-    // on success, change card in state, on error, show notification
-    this.setState(previousState => {
-      // this is gonna come from the server response
-      let targetCard = { ...previousState.cards.find(card => card.id == cardId), stage: targetColumnId }
-      let notModified = card => card.id != cardId
-
-      return ({
-        cards: previousState.cards.filter(notModified).concat(targetCard)
-      })
+    fetch("/sales/" + cardId, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", "X-Csrf-Token": this.csrfToken },
+      body: JSON.stringify({ sale: { stage: targetColumnId } })
     })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        else {
+          this.setState({ notification: "Não foi possível mover o negócio para a etapa selecionada." })
+          return Promise.reject()
+        }
+      })
+      .then((sale) => {
+        this.setState(({ cards }) => (
+          { cards: [sale].concat(cards.filter(card => card.id != cardId)) }
+        ))
+      })
   }
 
   render() {
@@ -78,6 +104,9 @@ class App extends React.Component {
             />
           )}
         </div>
+        {this.state.notification &&
+          <div className="notification" onAnimationEnd={() => this.setState({ notification: null })}>{this.state.notification}</div>
+        }
       </div>
     )
   }

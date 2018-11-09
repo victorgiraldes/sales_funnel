@@ -93,6 +93,10 @@ button {
   width: 100%;
 }
 
+.min-width-200 {
+  min-width: 200px;
+}
+
 .vertical-align-middle {
   vertical-align: middle;
 }
@@ -207,4 +211,25 @@ button {
 
 *[draggable="true"] {
   cursor: grab;
+}
+
+.notification {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 16px;
+  display: inline-block;
+  padding: 8px 16px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
 }

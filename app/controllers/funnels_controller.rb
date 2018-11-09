@@ -4,6 +4,6 @@ class FunnelsController < ApplicationController
   private
 
   def sales
-    @sales ||= Sale.all
+    @sales ||= Sale.order(created_at: :desc)
   end
 end

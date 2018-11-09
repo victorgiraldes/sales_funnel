@@ -5,19 +5,17 @@ class SalesController < ApplicationController
     sale = Sale.create_with_progression(sale_params)
 
     if sale.persisted?
-      redirect_to funnel_path
+      render json: sale_as_json
     else
-      flash.now[:alert] = "Venda não foi salva"
-      render :new
+      head :unprocessable_entity
     end
   end
 
   def update
     if sale.progress_to(stage)
-      redirect_to funnel_path
+      render json: sale_as_json
     else
-      flash.now[:alert] = "Venda não foi atualizada"
-      render :edit
+      head :unprocessable_entity
     end
   end
 
@@ -25,6 +23,10 @@ class SalesController < ApplicationController
 
   def sale
     @sale ||= Sale.find(params[:id])
+  end
+
+  def sale_as_json
+    sale.as_json(only: [:id, :product, :customer, :amount, :stage])
   end
 
   def sale_params

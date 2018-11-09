@@ -33,10 +33,10 @@ const Form = (props) => {
           <img src={cancelIcon} className="height-icon-sm vertical-align-middle" />
         </button>
       </div>
-      <div>
+      <div className="flex-container">
         <img src={companyIcon} className="height-icon-sm vertical-align-middle opacity-6 margin-right-sm" />
         <input
-          className="text-smaller inline-block vertical-align-middle"
+          className="text-smaller flex-item-grow vertical-align-middle"
           type="text"
           ref={input => inputs[1] = input}
           placeholder="Nome do cliente"
