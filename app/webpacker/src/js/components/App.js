@@ -1,11 +1,11 @@
 import React from "react"
 import { createStore } from "redux"
 import { Provider } from "react-redux"
-import dragdrop from "../reducers/dragdrop"
+import reducer from "../reducers/index"
 import Funnel from "./Funnel"
 
 const App = (props) => {
-  const store = createStore(dragdrop, props)
+  const store = createStore(reducer, props)
 
   return (
     <Provider store={store}>

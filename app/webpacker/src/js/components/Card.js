@@ -1,19 +1,19 @@
 import React from "react"
-import { connect } from "react-redux"
+import Currency from "./Currency"
 import companyIcon from "images/company.png"
-import * from "../actions"
 
 const Card = (props) => {
   const onDragStart = (event) => {
+    // Without this, Firefox does not trigger dragEnd
     event.dataTransfer.setData("id", props.id)
-    props.onDragStart(props.id, props.columnIndex, event.target.clientHeight)
+    props.onDragStart(event.target.clientHeight)
   }
 
   return (
     <div
       className={`
-        padding-md border-rounded bg-white margin-bottom-sm break-word box-shadow
-        ${props.dragged && "opacity-6"}
+        padding-md border-rounded bg-white margin-bottom-sm break-word
+        box-shadow ${props.dragged && "opacity-6"}
       `}
       draggable="true"
       onDragStart={onDragStart}
@@ -32,16 +32,10 @@ const Card = (props) => {
         </span>
       </div>
       <div className="margin-top-md text-right text-smaller text-success">
-        {props.amount}
+        <Currency amount={props.amount} />
       </div>
     </div>
   )
 }
 
-export default connect(
-  (state, ownProps) => ({ dragged: state.draggedCardId == ownProps.id }),
-  dispatch => ({
-    onDragStart: (id, col, height) => dispatch(dragStart(id, col, height)
-    onDragEnd: () => dispatch(dragEnd())
-  })
-)(Card)
+export default Card
