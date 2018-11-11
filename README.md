@@ -32,8 +32,6 @@ o que falta:
 - refatorar a parte do fetch que está zuada
 - extrair notificação para um componente
 - transformar form num componente classe para controlar melhor os inputs
-- ver como impedir de mover pra colunas anteriores
-- organizar o CSS***
 - arrumar os testes capybara
 - testes de request - talvez
 - testes de jss

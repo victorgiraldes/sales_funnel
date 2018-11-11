@@ -6,26 +6,28 @@ import Card from "./Card"
 const Column = (props) => {
   const onDrop = event => {
     event.preventDefault()
-    props.onDrop()
+    props.onDrop(props.index)
   }
+
+  const totalAmount = props.cards.reduce((acc, card) => acc + card.amount, 0)
 
   return (
     <div
       className="margin-right-sm flex-grow full-height min-width-200"
-      onDragEnter={props.onDragEnter}
-      onDragLeave={props.onDragLeave}
+      onDragEnter={() => props.onDragEnter(props.index)}
+      onDragLeave={() => props.onDragLeave(props.index)}
       onDragOver={event => event.preventDefault()}
       onDrop={onDrop}
     >
       <ColumnHeader
         id={props.id}
         title={props.title}
-        amount={props.cards.reduce((acc, card) => acc + card.amount)}
+        amount={totalAmount}
         count={props.cards.length}
       />
 
       <div className="margin-top-sm">
-        {props.dropzone && <Dropzone height={props.dropzone} />
+        {props.dropzone && <Dropzone height={props.dropzone} />}
 
         {props.cards.map(card =>
           <Card
@@ -37,7 +39,7 @@ const Column = (props) => {
             customerName={card.customer}
             amount={card.amount}
             dragged={card.dragged}
-            onDragStart={props.onDragStart(props.index, card.id)}
+            onDragStart={props.onDragStart}
             onDragEnd={props.onDragEnd}
           />
         )}
@@ -46,4 +48,4 @@ const Column = (props) => {
   )
 }
 
-export default Column
+export default React.memo(Column)

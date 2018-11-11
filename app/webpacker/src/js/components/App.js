@@ -1,11 +1,16 @@
 import React from "react"
-import { createStore } from "redux"
+import { createStore, applyMiddleware } from "redux"
 import { Provider } from "react-redux"
-import reducer from "../reducers/index"
-import Funnel from "./Funnel"
+import { createLogger } from "redux-logger"
+import reducer from "../reducers"
+import Funnel from "../containers/Funnel"
 
 const App = (props) => {
-  const store = createStore(reducer, props)
+  const logger = createLogger({ duration: true, diff: true })
+  const store = createStore(
+    reducer,
+    props
+  )
 
   return (
     <Provider store={store}>

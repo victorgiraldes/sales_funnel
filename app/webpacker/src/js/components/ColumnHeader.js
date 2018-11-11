@@ -28,4 +28,4 @@ const ColumnHeader = ({ id, title, amount, count }) => {
 const pluralize = (number, singular, plural) =>
   number + " " + (number > 1 ? singular : plural)
 
-export default ColumnHeader
+export default React.memo(ColumnHeader)

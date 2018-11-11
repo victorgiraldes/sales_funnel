@@ -6,7 +6,7 @@ const Card = (props) => {
   const onDragStart = (event) => {
     // Without this, Firefox does not trigger dragEnd
     event.dataTransfer.setData("id", props.id)
-    props.onDragStart(event.target.clientHeight)
+    props.onDragStart(props.columnIndex, props.id, event.target.clientHeight)
   }
 
   return (
@@ -17,7 +17,7 @@ const Card = (props) => {
       `}
       draggable="true"
       onDragStart={onDragStart}
-      onDragEnd={props.onDragEnd}
+      onDragEnd={() => props.onDragEnd(props.columnIndex, props.id)}
     >
       <div className="margin-top-sm margin-bottom-sm">
         {props.title}
@@ -38,4 +38,4 @@ const Card = (props) => {
   )
 }
 
-export default Card
+export default React.memo(Card)

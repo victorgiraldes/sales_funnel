@@ -1,15 +1,25 @@
+export const SHOW_FORM = "SHOW_FORM"
+export const DRAG_START = "DRAG_START"
+export const DRAG_END = "DRAG_END"
+export const DRAG_ENTER = "DRAG_ENTER"
+export const DRAG_LEAVE = "DRAG_LEAVE"
+export const DRAG_FINISH = "DRAG_FINISH"
+
+export const showForm = () => ({ type: SHOW_FORM })
+
 export const dragStart = (columnIndex, cardId, cardHeight) => (
-  { type: "DRAG_START", id: id, columnIndex: columnIndex, height: cardHeight }
+  { type: DRAG_START, id: cardId, columnIndex: columnIndex, height: cardHeight }
 )
+export const dragEnd = (columnIndex, cardId) => (
+  { type: DRAG_END, id: cardId, columnIndex: columnIndex }
+)
+export const dragEnter = (index) => ({ type: DRAG_ENTER, index: index })
+export const dragLeave = (index) => ({ type: DRAG_LEAVE, index: index })
+export const dragFinish = (index) => ({ type: DRAG_FINISH, index: index })
 
-export const dragEnd = () => ({ type: "DRAG_END" })
+export const drop = (index) => ({ type: DRAG_FINISH, index: index })
 
-export const dragEnter = (index) => ({ type: "DRAG_ENTER", index: index })
-
-export const dragLeave = (index) => ({ type: "DRAG_LEAVE", index: index })
-
-export const drop = (id, index) => ({ type: "DROP", id: id, index: index })
-
+/**
 export const drop = (id, index) => (
   (dispatch, getState) => {
     dispatch({ type: "DROP", index: index }) // reducer will hide dropzone
@@ -79,3 +89,4 @@ export const requestError = () => ({ type: "REQUEST_ERROR" })
 
 const readCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]').content
+**/
