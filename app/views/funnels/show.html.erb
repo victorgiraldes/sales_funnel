@@ -1,9 +1,12 @@
 <%=
   react_component "App",
     {
-      cards: sales,
       columns: stages.map do |id, title|
-        { id: id, title: title, cards: sales.where(stage: id) }
+        {
+          id: id,
+          title: title,
+          cards: sales.where(stage: id)
+        }
       end
     },
     prerender: true

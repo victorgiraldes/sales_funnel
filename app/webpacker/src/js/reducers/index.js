@@ -1,14 +1,7 @@
-import { SHOW_FORM } from "../actions"
+import { combineReducers } from "redux"
+import columns from "./columns"
 import drag from "./drag"
+import form from "./form"
+import notification from "./notification"
 
-const add = (state = { showForm: false }, action) => {
-  switch (action.type) {
-    case SHOW_FORM:
-      return ({ ...state, showForm: true })
-
-    default:
-      return state
-  }
-}
-
-export default drag
+export default combineReducers({ columns, drag, form, notification })

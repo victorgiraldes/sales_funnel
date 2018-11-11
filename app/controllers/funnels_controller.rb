@@ -4,7 +4,7 @@ class FunnelsController < ApplicationController
   private
 
   def sales
-    @sales ||= Sale.order(created_at: :desc)
+    @sales ||= Sale.order(updated_at: :desc)
   end
 
   def stages

@@ -2,17 +2,22 @@ import React from "react"
 import { connect } from "react-redux"
 import AddCardButton from "../components/AddCardButton"
 import Column from "../components/Column"
+import Toast from "../components/Toast"
 import {
-  showForm,
-  dragStart,
-  dragEnd,
-  dragEnter,
-  dragLeave,
-  drop
+  showForm, hideForm, updateForm, submitForm,
+  dragStart, dragEnd, dragEnter, dragLeave, drop,
+  dismissNotification
 } from "../actions"
 
 const Funnel = (props) => (
   <div>
+    {props.notification &&
+      <Toast
+        text={props.notification}
+        onDismiss={props.onDismissNotification}
+      />
+    }
+
     <AddCardButton onClick={props.onClickAdd} />
 
     <div className="flex margin-top-lg">
@@ -24,6 +29,11 @@ const Funnel = (props) => (
           title={column.title}
           cards={column.cards}
           dropzone={column.dropzone}
+          showForm={props.showForm && index == 0}
+          disableForm={props.disableForm}
+          onInputChange={props.onInputChange}
+          onFormSubmit={props.onFormSubmit}
+          onCancelAdd={props.onCancelAdd}
           onDragStart={props.onDragStart}
           onDragEnd={props.onDragEnd}
           onDragEnter={props.onDragEnter}
@@ -35,14 +45,48 @@ const Funnel = (props) => (
   </div>
 )
 
-export default connect(
-  state => ({ columns: state.columns, cards: state.cards }),
-  dispatch => ({
+const mapStateToProps = ({ columns, drag, form, notification }) => (
+  {
+    columns: columns.map((column, index) => {
+      if (index == drag.from)
+        return (
+          { ...column,
+            cards: column.cards.map(card =>
+              card.id == drag.id
+              ? { ...card, dragged: true }
+              : card
+            )
+          }
+        )
+      else if (index == drag.to && drag.status == "valid" && !column.dropzone)
+        return ({ ...column, dropzone: drag.height })
+      else
+        return column
+    }),
+    showForm: form.show,
+    disableForm: form.waiting,
+    notification: notification
+  }
+)
+
+const mapDispatchToProps = dispatch => (
+  {
     onClickAdd: () => dispatch(showForm()),
-    onDragStart: (columnIndex, id, height) => dispatch(dragStart(columnIndex, id, height)),
+    onCancelAdd: () => dispatch(hideForm()),
+    onInputChange: (name, value) => dispatch(updateForm(name, value)),
+    onFormSubmit: () => dispatch(submitForm()),
+    onDragStart: (columnIndex, id, height) => (
+      dispatch(dragStart(columnIndex, id, height))
+    ),
     onDragEnd: (columnIndex, id) => dispatch(dragEnd(columnIndex, id)),
     onDragEnter: (index) => dispatch(dragEnter(index)),
     onDragLeave: (index) => dispatch(dragLeave(index)),
-    onDrop: (index) => dispatch(drop(index))
-  })
+    onDrop: () => dispatch(drop()),
+    onDismissNotification: () => dispatch(dismissNotification())
+  }
+)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(React.memo(Funnel))

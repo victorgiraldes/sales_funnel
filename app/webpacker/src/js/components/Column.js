@@ -2,11 +2,12 @@ import React from "react"
 import ColumnHeader from "./ColumnHeader"
 import Dropzone from "./Dropzone"
 import Card from "./Card"
+import Form from "./Form"
 
 const Column = (props) => {
   const onDrop = event => {
     event.preventDefault()
-    props.onDrop(props.index)
+    props.onDrop()
   }
 
   const totalAmount = props.cards.reduce((acc, card) => acc + card.amount, 0)
@@ -27,6 +28,15 @@ const Column = (props) => {
       />
 
       <div className="margin-top-sm">
+        {props.showForm &&
+          <Form
+            disabled={props.disableForm}
+            onSubmit={props.onFormSubmit}
+            onChange={props.onInputChange}
+            onCancel={props.onCancelAdd}
+          />
+        }
+
         {props.dropzone && <Dropzone height={props.dropzone} />}
 
         {props.cards.map(card =>

@@ -29,9 +29,6 @@ Para organizar o meu processo comercial
 
 
 o que falta:
-- refatorar a parte do fetch que está zuada
-- extrair notificação para um componente
-- transformar form num componente classe para controlar melhor os inputs
 - arrumar os testes capybara
 - testes de request - talvez
 - testes de jss
