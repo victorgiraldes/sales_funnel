@@ -14,16 +14,22 @@ export const DRAG_END = "DRAG_END"
 export const DRAG_ENTER = "DRAG_ENTER"
 export const DRAG_LEAVE = "DRAG_LEAVE"
 export const DRAG_FINISH = "DRAG_FINISH"
+export const DROP_START = "DROP_START"
 
 export const INVALID_DROP = "INVALID_DROP"
 export const DISMISS_NOTIFICATION = "DISMISS_NOTIFICATION"
 
+// Dispatched when the user clicks the button to add a new card.
 export const showForm = () => ({ type: SHOW_FORM })
+// Dispatched when the user cancels the creation of a card.
 export const hideForm = () => ({ type: HIDE_FORM })
+// Dispatched when the user types on the form.
 export const updateForm = (name, value) => (
   { type: UPDATE_FORM, name: name, value: value }
 )
 
+// Dispatched when the user submits the form; since we're using HTML5
+// validations, this only happens when the form is valid.
 export const submitForm = () => (
   (dispatch, getState) => {
     const { title, customer, amount } = getState().form
@@ -64,22 +70,36 @@ export const submitForm = () => (
   }
 )
 
+// Dispatched when the request to add a new card starts.
+export const addRequestStarted = () => ({ type: ADD_REQUEST_STARTED })
+// Dispatched when the request to add a new card finishes, either with error or
+// success.
+export const addRequestFinished = () => ({ type: ADD_REQUEST_FINISHED })
+// Dispatched when the request to add a new card fails.
+export const addRequestError = () => ({ type: ADD_REQUEST_ERROR })
+// Dispatched when the request to add a new card is successful.
 export const receiveNewCard = (card) => ({ type: RECEIVE_NEW_CARD, card: card })
 
-export const addRequestStarted = () => ({ type: ADD_REQUEST_STARTED })
-export const addRequestFinished = () => ({ type: ADD_REQUEST_FINISHED })
-export const addRequestError = () => ({ type: ADD_REQUEST_ERROR })
-
+// Dispatched when the user starts dragging a card.
 export const dragStart = (columnIndex, cardId, cardHeight) => (
   { type: DRAG_START, id: cardId, columnIndex: columnIndex, height: cardHeight }
 )
+// Dispatched when the user stops dragging a card; not necessarily a drop, 
+// because a drop happens on a column, and this could happen anywhere.
 export const dragEnd = (columnIndex, cardId) => (
   { type: DRAG_END, id: cardId, columnIndex: columnIndex }
 )
+// Dispatched when a user is dragging a card and enters a column.
 export const dragEnter = (index) => ({ type: DRAG_ENTER, index: index })
+// Dispatched when a user is dragging a card and leaves a column.
 export const dragLeave = (index) => ({ type: DRAG_LEAVE, index: index })
+// Dispatched when a user drops a card on a column; this is actually a 
+// workaround for browsers that fail to register dragenter events.
+export const dropStart = (index) => ({ type: DROP_START, index: index })
+// Dispatched within the drop action, before the request starts.
 export const dragFinish = () => ({ type: DRAG_FINISH })
 
+// Dispatched when the user drops a card in a column.
 export const drop = () => (
   (dispatch, getState) => {
     const state = getState()
@@ -126,14 +146,21 @@ export const drop = () => (
   }
 )
 
+// Dispatched when a user drops a card on an invalid column.
 export const invalidDrop = () => ({ type: INVALID_DROP })
+// Dispatched when a card should be moved from one column to another; it's
+// dispatched inside the drop action.
 export const moveCard = (id, from, to) => (
   { type: MOVE_CARD, id: id, from: from, to: to }
 )
 
+// Dispatched when the request to move a card fails.
 export const moveRequestError = () => ({ type: MOVE_REQUEST_ERROR })
 
+// Dispatched when the notification is dismissed; there's no button to dismiss 
+// it, so this happens automatically when the animation ends.
 export const dismissNotification = () => ({ type: DISMISS_NOTIFICATION })
 
+// Required by rails controllers to avoid Cross Site Request Forgery (CSRF)
 const readCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]').content

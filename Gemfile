@@ -21,4 +21,9 @@ group :test do
   gem "shoulda-matchers", "4.0.0.rc1"
   gem "capybara", "~> 3.10.1"
   gem "factory_bot_rails", "~> 4.11"
+  gem "selenium-webdriver", "~> 3.14"
+  gem "chromedriver-helper", "~> 2.1"
+  gem "database_cleaner", "~> 1.7"
+  gem "capybara-screenshot", "~> 1.0"
+  gem "simplecov", "~> 0.10"
 end

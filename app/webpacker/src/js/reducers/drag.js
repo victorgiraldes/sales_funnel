@@ -3,21 +3,22 @@ import {
   DRAG_END,
   DRAG_ENTER,
   DRAG_LEAVE,
-  DRAG_FINISH
+  DRAG_FINISH,
+  DROP_START
 } from "../actions"
 
 const initialState = {
   dragging: false,
   id: null,
-  source: null,
-  target: null,
+  from: null,
+  to: null,
   height: null,
   enters: {},
   status: "none"
 }
 
 const drag = (state = initialState, action) => {
-  let previousCount, newCount
+  let previousCount, newCount, targetColumn, status
 
   switch (action.type) {
     case DRAG_START:
@@ -40,9 +41,7 @@ const drag = (state = initialState, action) => {
 
       return (
         {
-          ...state,
-          to: action.index,
-          status: validate({ from: state.from, to: action.index }),
+          ...updateDropTarget(state, action),
           enters: { ...state.enters, [action.index]: newCount }
         }
       )
@@ -51,8 +50,13 @@ const drag = (state = initialState, action) => {
       previousCount = getPreviousCount(state, action)
       newCount = previousCount > 1 ? previousCount - 1 : 0
 
+      const didntLeave = newCount > 0
+
       return (
-        { ...state,
+        {
+          ...state,
+          to:     didntLeave ? state.to : null,
+          status: didntLeave ? state.status : "none",
           enters: { ...state.enters, [action.index]: newCount }
         }
       )
@@ -60,10 +64,24 @@ const drag = (state = initialState, action) => {
     case DRAG_FINISH:
       return initialState
 
+    case DROP_START:
+      return updateDropTarget(state, action)
+
     default:
       return state
   }
 }
+
+const updateDropTarget = (state, action) => (
+  {
+    ...state,
+    to: action.index,
+    status:
+      state.to == action.index
+      ? state.status
+      : validate({ from: state.from, to: action.index })
+  }
+)
 
 const validate = ({ from, to }) => {
   if (to > from)

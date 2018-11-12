@@ -5,7 +5,7 @@ import Column from "../components/Column"
 import Toast from "../components/Toast"
 import {
   showForm, hideForm, updateForm, submitForm,
-  dragStart, dragEnd, dragEnter, dragLeave, drop,
+  dragStart, dragEnd, dragEnter, dragLeave, dropStart, drop,
   dismissNotification
 } from "../actions"
 
@@ -75,13 +75,16 @@ const mapDispatchToProps = dispatch => (
     onCancelAdd: () => dispatch(hideForm()),
     onInputChange: (name, value) => dispatch(updateForm(name, value)),
     onFormSubmit: () => dispatch(submitForm()),
-    onDragStart: (columnIndex, id, height) => (
+    onDragStart: (columnIndex, id, height) => {
       dispatch(dragStart(columnIndex, id, height))
-    ),
+    },
     onDragEnd: (columnIndex, id) => dispatch(dragEnd(columnIndex, id)),
     onDragEnter: (index) => dispatch(dragEnter(index)),
     onDragLeave: (index) => dispatch(dragLeave(index)),
-    onDrop: () => dispatch(drop()),
+    onDrop: (index) => {
+      dispatch(dropStart(index))
+      dispatch(drop())
+    },
     onDismissNotification: () => dispatch(dismissNotification())
   }
 )

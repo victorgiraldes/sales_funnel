@@ -4,13 +4,14 @@ import companyIcon from "images/company.png"
 
 const Card = (props) => {
   const onDragStart = (event) => {
-    // Without this, Firefox does not trigger dragEnd
+    // Without this, some browsers don't trigger dragEnd
     event.dataTransfer.setData("id", props.id)
     props.onDragStart(props.columnIndex, props.id, event.target.clientHeight)
   }
 
   return (
     <div
+      id={`card-${props.id}`}
       className={`
         padding-md border-rounded bg-white margin-bottom-sm break-word
         box-shadow ${props.dragged && "opacity-6"}
@@ -19,7 +20,7 @@ const Card = (props) => {
       onDragStart={onDragStart}
       onDragEnd={() => props.onDragEnd(props.columnIndex, props.id)}
     >
-      <div className="margin-top-sm margin-bottom-sm">
+      <div className="margin-top-sm margin-bottom-sm text-tight">
         {props.title}
       </div>
       <div>

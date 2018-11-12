@@ -7,14 +7,16 @@ import Form from "./Form"
 const Column = (props) => {
   const onDrop = event => {
     event.preventDefault()
-    props.onDrop()
+    props.onDrop(props.index)
   }
 
   const totalAmount = props.cards.reduce((acc, card) => acc + card.amount, 0)
 
   return (
     <div
-      className="margin-right-sm flex-grow full-height min-width-200"
+      id={`column-${props.id}`}
+      className=
+        "margin-right-sm flex-grow full-height min-width-200 max-width-300"
       onDragEnter={() => props.onDragEnter(props.index)}
       onDragLeave={() => props.onDragLeave(props.index)}
       onDragOver={event => event.preventDefault()}

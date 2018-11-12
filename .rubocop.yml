@@ -27,6 +27,9 @@ Style/SymbolArray:
 Style/GuardClause:
   Enabled: false
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedLastArgumentHashStyle: ignore_implicit
@@ -37,3 +40,4 @@ Layout/AlignParameters:
 Metrics/BlockLength:
   ExcludedMethods:
     - describe
+    - feature

@@ -1,25 +1,50 @@
 require "rails_helper"
 
-RSpec.feature "Create sale" do
+RSpec.feature "Create sale", :js do
   background do
     visit "/"
-
-    click_link "Criar nova venda"
   end
 
-  scenario "when values are valid" do
-    fill_in "Produto", with: "Product"
-    fill_in "Cliente", with: "Customer"
-    fill_in "Valor", with: "1000"
-    click_button "Salvar"
+  scenario "creates new sale when values are valid" do
+    click_button "Adicionar negócio"
 
-    expect(page).to have_content "Product Customer 1000 contact"
-  end
+    # All inputs blank
+    click_button "Criar"
+    expect(validation_message_for("title")).to eq "Please fill out this field."
 
-  scenario "when values are invalid" do
-    fill_in "Valor", with: "abc"
-    click_button "Salvar"
+    # Only title filled in
+    fill_in "title", with: "Sale Title"
+    click_button "Criar"
 
-    expect(page).to have_content "Venda não foi salva"
+    expect(validation_message_for("title")).to eq ""
+    expect(validation_message_for("customer"))
+      .to eq "Please fill out this field."
+
+    # Title and customer filled in
+    fill_in "customer", with: "Customer Name"
+    click_button "Criar"
+
+    expect(validation_message_for("title")).to eq ""
+    expect(validation_message_for("customer")).to eq ""
+    expect(validation_message_for("amount")).to eq "Please fill out this field."
+
+    # All filled in, but invalid amount
+    fill_in "amount", with: "1000,,...29"
+    click_button "Criar"
+
+    expect(validation_message_for("title")).to eq ""
+    expect(validation_message_for("customer")).to eq ""
+    expect(validation_message_for("amount")).to eq "Please enter a number."
+
+    # Finally, valid amount
+    # Cents separator is locale-specific
+    fill_in "amount", with: "1000.50"
+    click_button "Criar"
+
+    within "#column-contact" do
+      expect(page).to have_content "Sale Title"
+      expect(page).to have_content "Customer Name"
+      expect(page).to have_content "R$ 1.000,50"
+    end
   end
 end
