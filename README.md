@@ -1,10 +1,59 @@
 # Funil de vendas
 
-Esse projeto é minha solução do teste descrito abaixo. Ele é um funil de vendas 
-em que os usuários podem adicionar negócios e evolui-los de etapa para organizar 
-seu processo comercial.
+Como um novo desenvolvedor na empresa Agenor, você foi encarregado de trabalhar
+no projeto de funil de vendas da empresa. Nele, os usuários podem adicionar negócios
+e evolui-los de etapa para organizar o seu processo comercial.
 
-Uma live demo do projeto está disponível em https://agendor-test-sales-funnel.herokuapp.com.
+Sua tarefa é adicionar uma nova funcionalidade no projeto, de maneira que os usuários
+possam ver a evolução de um determinado negócio.
+
+## Tarefa
+
+A sua tarefa está descrita na história abaixo:
+
+```
+Como um vendedor
+
+Posso clicar em um negócio no meu funil
+
+Para analisar a evolução do mesmo no meu processo comercial
+```
+
+Você deve implementar a história acima usando o layout encotrado [aqui](link_do_layout).
+
+A princípio, todos os requisitos funcionais necessários para o desenvolvimento da
+tarefa já estão implementados no projeto. Porém, você está livre para fazer as modificações
+que julgar necessárias para completar a sua tarefa.
+
+## Projeto
+
+Por motivos de simplificação, o projeto contém tanto o código para o front-end quanto
+para o back-end.
+
+### Back-end
+
+- O back-end da aplicação foi feito utilizando Ruby on Rails, e expõe duas APIs
+utilizadas pelo front-end:
+  - `POST /sales` para a criação de novos negócios
+  - `PATCH /sales/{id}` para a alteração de etapa de um negócio.
+- Foi modelada uma entidade `Progression` que representa uma mudança de etapa
+no funil. Ela possibilita que seja calculado o tempo de permanência de um
+negócio em um determinada etapa e a data de mudança de etapa.
+- Os negócios podem ser movidos apenas para etapas *posteriores* do funil, pois
+se trata de uma *evolução* no processo comercial. Logo, a validação feita para
+mudança de etapa é apenas verificar se a posição da coluna destino é maior que
+a posição da coluna de origem. Note que ainda é possível mover um negócio da
+etapa "Ganho" para a etapa "Perdido".
+
+### Front-end
+
+- Para o front-end, foi utilizado React com Redux para organizar o fluxo de dados.
+([mais informações](https://redux.js.org));
+- A aplicação está toda contida na pasta `app/webpacker`, incluindo CSS e imagens;
+- A alteração de etapas foi implementada através de drag e drop;
+- A validação do formulário de criação de negócio foi feita com validações nativas HTML5;
+- Não há uso de frameworks CSS, mas o mesmo foi inspirado pela abordagem de CSS atômico
+([mais informações](https://johnpolacek.github.io/the-case-for-atomic-css.));
 
 ## Setup
 
@@ -56,83 +105,3 @@ docker-compose up
 ```
 
 Ele estará disponível em http://localhost:3000.
-
-## Comentários
-
-### Back-end
-
-- O back-end foi feito com Ruby on Rails, expondo duas APIs para a aplicação do 
-front:
-  - `POST /sales` para criação de novos negócios
-  - `PATCH /sales/{id}` para alteração de etapa de um negócio.
-
-- Foi modelada uma entidade `Progression` que representa uma mudança de etapa e 
-possibilita que seja calculado o tempo de permanência de um negócio numa etapa e 
-a data de mudança de etapa;
-
-- Foi considerado que os negócios podem ser movidos apenas para etapas *posteriores*
-do funil, devido a ser uma "evolução", como mencionado na descrição; 
-dessa forma, a validação feita para mudança de etapa é apenas verificar se a 
-posição da coluna destino é maior que a posição da coluna de origem, o que 
-também resolve o caso da coluna "Ganhos".
-
-### Front-end
-
-- Para o front-end, foi utilizado React com Redux para organizar o fluxo de dados. 
-([mais informações](https://redux.js.org));
-
-- A aplicação front está toda contida na pasta `app/webpacker`, incluindo CSS e 
-imagens;
-
-- A alteração de etapas foi implementada no front através de drag e drop;
-
-- A validação do formulário de criação de negócio foi feita com validações 
-nativas HTML5;
-
-- Houve a duplicação de algumas validações no front-end (formulário e alteração 
-de etapa do funil) para melhorar a usabilidade, evitando requests desnecessários 
-e fornecendo feedback instantâneo para o usuário;
-
-- O CSS foi escrito sem frameworks, mas inspirado pela abordagem de CSS atômico 
-([mais informações](https://johnpolacek.github.io/the-case-for-atomic-css.))
-
-- A página tem aparência responsiva, porém os eventos de drag e drop do HTML5 
-não tem suporte para touch.
-
----
-
-## Descrição do teste
-
-Criar um projeto no Github para implementar um funil de vendas.
-
-De preferência, criar uma live demo com o projeto rodando e nos passar a URL para testar.
-
-Tecnologias obrigatórias: Ruby on Rails, Git, HTML, CSS e JavaScript
-
-Tecnologias desejadas: React.js
-
-Protótipo: https://sketch.cloud/s/djxJn
-
-### Histórias
-
-Como um vendedor
-
-Posso criar um negócio no meu funil de vendas
-
-Para organizar o meu processo comercial
-
-
-Como um vendedor
-
-Posso evoluir um negócio de etapa no funil
-
-Para organizar o meu processo comercial
-
-### Regras de negócio
-
-- Quando um negócio for ganho, ele não pode mudar de etapa, mas pode ser perdido.
-- Um negócio pode ser perdido em qualquer etapa
-- Toda vez que uma ação inválida for executada, o usuário deve ser notificado
-- É preciso gravar quando cada negócio foi ganho
-- É preciso saber quanto tempo cada negócio durou em cada etapa
-
