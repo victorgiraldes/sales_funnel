@@ -19,7 +19,9 @@ Posso ver mais detalhes de um negócio no funil
 Para analisar a sua evolução no meu processo comercial
 ```
 
-Você deve implementar a história acima usando o layout encotrado [aqui](link_do_layout).
+Você deve implementar a história acima usando o seguinte layout:
+
+![Layout](box.svg)
 
 O projeto já está estruturado para a realização da tarefa. Porém, você está livre para
 fazer as modificações que julgar necessárias.
@@ -35,7 +37,7 @@ utilizadas pelo front-end:
   - `POST /sales` para a criação de novos negócios
   - `PATCH /sales/{id}` para a alteração de etapa de um negócio.
 - Os negócios podem ser movidos apenas para etapas *posteriores* do funil, pois
-se trata de uma *evolução* no processo comercial. Note que ainda é possível 
+se trata de uma *evolução* no processo comercial. Note que ainda é possível
 mover um negócio da etapa "Ganho" para a etapa "Perdido".
 
 ### Front-end
