@@ -21,14 +21,12 @@ Para analisar a evolução do mesmo no meu processo comercial
 
 Você deve implementar a história acima usando o layout encotrado [aqui](link_do_layout).
 
-A princípio, todos os requisitos funcionais necessários para o desenvolvimento da
-tarefa já estão implementados no projeto. Porém, você está livre para fazer as modificações
-que julgar necessárias para completar a sua tarefa.
+O projeto já está estruturado para a realização da tarefa. Porém, você está livre para
+fazer as modificações que julgar necessárias para completar a sua tarefa.
 
 ## Projeto
 
-Por motivos de simplificação, o projeto contém tanto o código para o front-end quanto
-para o back-end.
+O projeto já contém tanto o código para o front-end quanto para o back-end.
 
 ### Back-end
 
