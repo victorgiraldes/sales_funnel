@@ -21,7 +21,7 @@ Para analisar a sua evolução no meu processo comercial
 
 Você deve implementar a história acima usando o seguinte layout:
 
-![Layout](box.svg)
+![Layout](https://raw.github.com/agendor/sales_funnel/master/webpacker/images/box.svg?sanitize=true)
 
 O projeto já está estruturado para a realização da tarefa. Porém, você está livre para
 fazer as modificações que julgar necessárias.
