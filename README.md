@@ -99,6 +99,11 @@ docker-compose up
 
 Ele estará disponível em http://localhost:3000.
 
+## Entrega
+
+Para a realização desta tarefa, faça um fork deste projeto e faça sua alterações. Quando estiver pronto,
+envie o link do repositório para o email dev@agendor.com.br
+
 ## Dúvidas
 
 Trabalhar no Agenor significa que você não trabalhará sozinho. Portanto, em caso de dúvidas,
