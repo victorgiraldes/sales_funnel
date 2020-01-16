@@ -72,7 +72,7 @@ docker-compose run app yarn install
 Crie o banco e rode as migrações com:
 
 ```
-docker-compose run app bundle exec rake db:create db:create
+docker-compose run app bundle exec rake db:create db:migrate
 ```
 
 ### Testes
