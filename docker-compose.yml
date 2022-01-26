@@ -7,7 +7,10 @@ services:
       - "5433:5432"
     logging:
       driver: "none"
-
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
   app:
     build: .
     command: "bundle exec rails s -b 0.0.0.0"
