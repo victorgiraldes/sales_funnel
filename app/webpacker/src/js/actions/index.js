@@ -19,6 +19,11 @@ export const DROP_START = "DROP_START"
 export const INVALID_DROP = "INVALID_DROP"
 export const DISMISS_NOTIFICATION = "DISMISS_NOTIFICATION"
 
+export const HIDE_MODAL = "HIDE_MODAL"
+export const SHOW_MODAL = "SHOW_MODAL"
+export const INVOKE_MODAL = "INVOKE_MODAL"
+
+
 // Dispatched when the user clicks the button to add a new card.
 export const showForm = () => ({ type: SHOW_FORM })
 // Dispatched when the user cancels the creation of a card.
@@ -84,7 +89,7 @@ export const receiveNewCard = (card) => ({ type: RECEIVE_NEW_CARD, card: card })
 export const dragStart = (columnIndex, cardId, cardHeight) => (
   { type: DRAG_START, id: cardId, columnIndex: columnIndex, height: cardHeight }
 )
-// Dispatched when the user stops dragging a card; not necessarily a drop, 
+// Dispatched when the user stops dragging a card; not necessarily a drop,
 // because a drop happens on a column, and this could happen anywhere.
 export const dragEnd = (columnIndex, cardId) => (
   { type: DRAG_END, id: cardId, columnIndex: columnIndex }
@@ -93,7 +98,7 @@ export const dragEnd = (columnIndex, cardId) => (
 export const dragEnter = (index) => ({ type: DRAG_ENTER, index: index })
 // Dispatched when a user is dragging a card and leaves a column.
 export const dragLeave = (index) => ({ type: DRAG_LEAVE, index: index })
-// Dispatched when a user drops a card on a column; this is actually a 
+// Dispatched when a user drops a card on a column; this is actually a
 // workaround for browsers that fail to register dragenter events.
 export const dropStart = (index) => ({ type: DROP_START, index: index })
 // Dispatched within the drop action, before the request starts.
@@ -157,10 +162,45 @@ export const moveCard = (id, from, to) => (
 // Dispatched when the request to move a card fails.
 export const moveRequestError = () => ({ type: MOVE_REQUEST_ERROR })
 
-// Dispatched when the notification is dismissed; there's no button to dismiss 
+// Dispatched when the notification is dismissed; there's no button to dismiss
 // it, so this happens automatically when the animation ends.
 export const dismissNotification = () => ({ type: DISMISS_NOTIFICATION })
 
 // Required by rails controllers to avoid Cross Site Request Forgery (CSRF)
 const readCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]').content
+
+// Dispatched when user click on a card.
+export const invokeModal = () => (
+  (dispatch, getState) => {
+    const state = getState()
+
+    const cardId = state.drag.id
+
+    fetch(`/sales/${cardId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Csrf-Token": readCsrfToken()
+      }
+    })
+    .then(
+      response => {
+        if (!response.ok) {
+          response.json().then(json => {
+            dispatch(showModal(json))
+          })
+        }
+      },
+      error => {
+        dispatch(moveRequestError())
+      }
+    )
+  }
+)
+
+// Dispatched when the request returns a sale
+export const showModal = (json) => ({ type: SHOW_MODAL })
+
+// Dispatched user click on close button from modal
+export const hideModal = () => ({ type: HIDE_MODAL })
