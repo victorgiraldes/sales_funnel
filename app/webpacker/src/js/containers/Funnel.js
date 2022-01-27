@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import AddCardButton from "../components/AddCardButton"
 import Column from "../components/Column"
 import Toast from "../components/Toast"
+import Sale from "./containers"
 import {
   showForm, hideForm, updateForm, submitForm,
   dragStart, dragEnd, dragEnter, dragLeave, dropStart, drop,
@@ -15,6 +16,12 @@ const Funnel = (props) => (
       <Toast
         text={props.notification}
         onDismiss={props.onDismissNotification}
+      />
+    }
+
+    {props.onClickCard &&
+      <Sale
+        props={props}
       />
     }
 
@@ -39,6 +46,7 @@ const Funnel = (props) => (
           onDragEnter={props.onDragEnter}
           onDragLeave={props.onDragLeave}
           onDrop={props.onDrop}
+          onClickCard={props.onClickCard}
         />
       )}
     </div>

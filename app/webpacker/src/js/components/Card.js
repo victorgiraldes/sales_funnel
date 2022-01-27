@@ -1,12 +1,17 @@
 import React from "react"
 import Currency from "./Currency"
 import companyIcon from "images/company.png"
+import DetailCardButton from "./DetailCardButton"
 
 const Card = (props) => {
   const onDragStart = (event) => {
     // Without this, some browsers don't trigger dragEnd
     event.dataTransfer.setData("id", props.id)
     props.onDragStart(props.columnIndex, props.id, event.target.clientHeight)
+  }
+
+  const onClickCard = () => {
+    props.onClickCard(props)
   }
 
   return (
@@ -34,6 +39,9 @@ const Card = (props) => {
       </div>
       <div className="margin-top-md text-right text-smaller text-success">
         <Currency amount={props.amount} />
+      </div>
+      <div className="margin-top-md text-right text-smaller text-success">
+        <DetailCardButton onClick={props.onClickCard} />
       </div>
     </div>
   )
